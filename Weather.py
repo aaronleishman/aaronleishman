@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import requests
+from datetime import datetime
 
 def winddirection(deg):
     if deg > 337.5 or deg < 22.5:
@@ -36,16 +37,23 @@ c_feelsLike = str(round(response_data['main']['feels_like'],1))
 c_description = response_data['weather'][0]['description']
 c_humidity = str(response_data['main']['humidity'])
 c_pressure = str(round((response_data['main']['pressure']/33.8637526),1)) # divide by 33.8637526 converts milbars to inches
-c_windSpeed = str(response_data['wind']['speed'])
+c_windSpeed = str(round(response_data['wind']['speed'],1))
 c_windDeg = response_data['wind']['deg']
 
+#sunrise and sunset
+ts_sunrise = datetime.fromtimestamp(response_data['sys']['sunrise'])
+ts_sunset = datetime.fromtimestamp(response_data['sys']['sunset'])
+
+t_sunrise = ts_sunrise.strftime('%l:%M:%p')
+t_sunset = ts_sunset.strftime('%l:%M:%p')
 
 print ("Currently: " + c_temp +"F | " +
        "Feels Like: " + c_feelsLike + "F | " +
-        c_description + " | "  +
-        "Wind: " + winddirection(c_windDeg) , c_windSpeed + "MPH | " +
+        c_description + " | \n"  +
+        "Wind: " + winddirection(c_windDeg) , c_windSpeed + " MPH | " +
         " Humidity: " + c_humidity + "% | "  +
-        " Barometer: " + c_pressure + "in |" )
+        " Barometer: " + c_pressure + "in | \n" +
+        "Sunrise:" + t_sunrise + " | Sunset:" + t_sunset + " |")
 
 
 
