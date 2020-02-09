@@ -3,6 +3,13 @@
 import requests
 from datetime import datetime
 
+
+
+def getWeather(base_Url, api_Key, cityName, Units):
+    complete_Url = base_Url + "appid=" + api_Key + "&q=" + cityName + "&" + Units 
+    api_data = requests.get(complete_Url).json()
+    return api_data
+
 def winddirection(deg):
     if deg > 337.5 or deg < 22.5:
         w_direction = 'N'
@@ -22,30 +29,28 @@ def winddirection(deg):
         w_direction = 'NW'
     return w_direction
 
-api_key = "1dcb94b0a7402e4276c609e0f9a910d0"
-base_url = "http://api.openweathermap.org/data/2.5/weather?"
+
+api_key = "1dcb94b0a7402e4276c609e0f9a910d0" # change to your API key
 units = "units=imperial" 
-city_name = "52641"
+currentWeather_url = "http://api.openweathermap.org/data/2.5/weather?"
+forcastWeather_url = "http://api.openweathermap.org/data/2.5/forecast?"
+city_name = input("Enter city name : ")
 
-# http://api.openweathermap.org/data/2.5/weather?appid=1dcb94b0a7402e4276c609e0f9a910d0&q=52641&units=imperial
-complete_url = base_url + "appid=" + api_key + "&q=" + city_name + "&" + units 
-response_data = requests.get(complete_url).json()
+Weather_data = getWeather(currentWeather_url,api_key, city_name, units)
 
+print(Weather_data['cod'])
 
-c_temp = str(round(response_data['main']['temp'],1))
-c_feelsLike = str(round(response_data['main']['feels_like'],1))
-c_description = response_data['weather'][0]['description']
-c_humidity = str(response_data['main']['humidity'])
-c_pressure = str(round((response_data['main']['pressure']/33.8637526),1)) # divide by 33.8637526 converts milbars to inches
-c_windSpeed = str(round(response_data['wind']['speed'],1))
-c_windDeg = response_data['wind']['deg']
-
-#sunrise and sunset
-ts_sunrise = datetime.fromtimestamp(response_data['sys']['sunrise'])
-ts_sunset = datetime.fromtimestamp(response_data['sys']['sunset'])
-
-t_sunrise = ts_sunrise.strftime('%l:%M:%p')
-t_sunset = ts_sunset.strftime('%l:%M:%p')
+c_temp = str(round(Weather_data['main']['temp'],1))
+c_feelsLike = str(round(Weather_data['main']['feels_like'],1))
+c_description = Weather_data['weather'][0]['description']
+c_humidity = str(Weather_data['main']['humidity'])
+c_pressure = str(round((Weather_data['main']['pressure']/33.8637526),1)) # divide by 33.8637526 converts milbars to inches
+c_windSpeed = str(round(Weather_data['wind']['speed'],1))
+c_windDeg = Weather_data['wind']['deg']
+ts_sunrise = datetime.fromtimestamp(Weather_data['sys']['sunrise'])
+ts_sunset = datetime.fromtimestamp(Weather_data['sys']['sunset'])
+t_sunrise = ts_sunrise.strftime('%l:%M%p')
+t_sunset = ts_sunset.strftime('%l:%M%p')
 
 print ("Currently: " + c_temp +"F | " +
        "Feels Like: " + c_feelsLike + "F | " +
