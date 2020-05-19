@@ -1,0 +1,395 @@
+BoxLayout:
+    orientation: 'vertical'
+    MDToolbar:
+        id:tb
+        title: "Aaron's Weather"
+        left_action_items:[['icons/icon.png', lambda x: print('icon')]]
+        right_action_items: [['magnify', lambda x: app.search_menu.open()]]
+    MDBottomNavigation:
+        panel_color: [1, 1, 1, 1]
+        MDBottomNavigationItem:
+            text: "Current"
+            id: scn1
+            name: "live"
+            icon: "death-star"
+            ScrollView:
+                MDList:
+                    TwoLineAvatarListItem:
+                        text: app.w.addr
+                        secondary_text: 'lat: ' + app.w.lati + ' lon: ' + app.w.long
+                        id: l1
+                        ImageLeftWidget:
+                            source: "icons/map.png"
+                    OneLineAvatarListItem:
+                        text: app.w.liveDescription.title()
+                        id: l2
+                        ImageLeftWidget:
+                            source: "icons/" + app.w.liveDescriptionIcon +".png"
+                    OneLineAvatarListItem:
+                        text: app.w.liveTemp + '  |  Feels: ' + app.w.liveFeelsLike
+                        id: l3
+                        ImageLeftWidget:
+                            source: "icons/004-hot.png"
+                    OneLineAvatarListItem:
+                        text: 'Wind: ' + app.w.liveWindDirection + " " + app.w.liveWindSpeed
+                        id: l4
+                        ImageLeftWidget:
+                            source: "icons/002-wind.png"
+                    OneLineAvatarListItem:
+                        text: 'Humidity: ' + app.w.liveHumidity
+                        id: l5
+                        ImageLeftWidget:
+                            source: "icons/humidity.png"
+                    OneLineAvatarListItem:
+                        text: 'Barometer: ' + app.w.livePressure
+                        id: l6
+                        ImageLeftWidget:
+                            source: "icons/001-barometer.png"
+                    OneLineAvatarListItem:
+                        text: 'Sunrise: ' + app.w.liveSunrise
+                        id: l7
+                        ImageLeftWidget:
+                            source: "icons/003-sunrise.png"
+                    OneLineAvatarListItem:
+                        text: 'Sunset: ' + app.w.liveSunset
+                        id: l8
+                        ImageLeftWidget:
+                            source: "icons/003-sunrise.png"
+                    OneLineAvatarListItem:
+                        text: 'As of: ' + app.w.lastRefresh.strftime('%a: %m/%d%l:%M%p')
+                        id: l9
+                        ImageLeftWidget:
+                            source: "icons/refresh.png"
+        MDBottomNavigationItem:
+            text: "Outlook"
+            name: "forecast"
+            icon: "space-invaders"
+            ScrollView:
+                MDList:
+                    id: outlook
+                    TwoLineAvatarListItem:
+                        text: app.w.addr
+                        secondary_text: 'lat: ' + app.w.lati + ' lon: ' + app.w.long
+                        id: f00
+                        ImageLeftWidget:
+                            source: "icons/map.png"
+                    ThreeLineAvatarListItem:
+                        id: f0
+                        text: str(app.w.forecastTemp[0]) + 'F' + ' ' +  app.w.forecastDescription[0].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[0]) + ' ' + str(app.w.forecastWindSpeed[0]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[0]) + "%"
+                        tertiary_text: app.w.forecastDateTime[0].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f0icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[0]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f1
+                        text: str(app.w.forecastTemp[1]) + 'F' + ' ' +  app.w.forecastDescription[1].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[1]) + ' ' + str(app.w.forecastWindSpeed[1]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[1]) + "%"
+                        tertiary_text: app.w.forecastDateTime[1].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f1icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[1]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f2
+                        text: str(app.w.forecastTemp[2]) + 'F' + ' ' +  app.w.forecastDescription[2].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[2]) + ' ' + str(app.w.forecastWindSpeed[2]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[2]) + "%"
+                        tertiary_text: app.w.forecastDateTime[2].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f2icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[2]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f3
+                        text: str(app.w.forecastTemp[3]) + 'F' + ' ' +  app.w.forecastDescription[3].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[3]) + ' ' + str(app.w.forecastWindSpeed[3]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[3]) + "%"
+                        tertiary_text: app.w.forecastDateTime[3].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f3icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[3]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f4
+                        text: str(app.w.forecastTemp[4]) + 'F' + ' ' +  app.w.forecastDescription[4].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[4]) + ' ' + str(app.w.forecastWindSpeed[4]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[4]) + "%"
+                        tertiary_text: app.w.forecastDateTime[4].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f4icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[4]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f5
+                        text: str(app.w.forecastTemp[5]) + 'F' + ' ' +  app.w.forecastDescription[5].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[5]) + ' ' + str(app.w.forecastWindSpeed[5]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[5]) + "%"
+                        tertiary_text: app.w.forecastDateTime[5].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f5icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[5]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f6
+                        text: str(app.w.forecastTemp[6]) + 'F' + ' ' +  app.w.forecastDescription[6].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[6]) + ' ' + str(app.w.forecastWindSpeed[6]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[6]) + "%"
+                        tertiary_text: app.w.forecastDateTime[6].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f6icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[6]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f7
+                        text: str(app.w.forecastTemp[7]) + 'F' + ' ' +  app.w.forecastDescription[7].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[7]) + ' ' + str(app.w.forecastWindSpeed[7]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[7]) + "%"
+                        tertiary_text: app.w.forecastDateTime[7].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f7icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[7]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f8
+                        text: str(app.w.forecastTemp[8]) + 'F' + ' ' +  app.w.forecastDescription[8].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[8]) + ' ' + str(app.w.forecastWindSpeed[8]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[8]) + "%"
+                        tertiary_text: app.w.forecastDateTime[8].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f8icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[8]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f9
+                        text: str(app.w.forecastTemp[9]) + 'F' + ' ' +  app.w.forecastDescription[9].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[9]) + ' ' + str(app.w.forecastWindSpeed[9]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[9]) + "%"
+                        tertiary_text: app.w.forecastDateTime[9].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f9icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[9]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f10
+                        text: str(app.w.forecastTemp[10]) + 'F' + ' ' +  app.w.forecastDescription[10].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[10]) + ' ' + str(app.w.forecastWindSpeed[10]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[10]) + "%"
+                        tertiary_text: app.w.forecastDateTime[10].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f10icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[10]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f11
+                        text: str(app.w.forecastTemp[11]) + 'F' + ' ' +  app.w.forecastDescription[11].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[11]) + ' ' + str(app.w.forecastWindSpeed[11]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[11]) + "%"
+                        tertiary_text: app.w.forecastDateTime[11].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f11icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[11]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f12
+                        text: str(app.w.forecastTemp[12]) + 'F' + ' ' +  app.w.forecastDescription[12].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[12]) + ' ' + str(app.w.forecastWindSpeed[12]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[12]) + "%"
+                        tertiary_text: app.w.forecastDateTime[12].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f12icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[12]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f13
+                        text: str(app.w.forecastTemp[13]) + 'F' + ' ' +  app.w.forecastDescription[13].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[13]) + ' ' + str(app.w.forecastWindSpeed[13]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[13]) + "%"
+                        tertiary_text: app.w.forecastDateTime[13].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f13icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[13]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f14
+                        text: str(app.w.forecastTemp[14]) + 'F' + ' ' +  app.w.forecastDescription[14].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[14]) + ' ' + str(app.w.forecastWindSpeed[14]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[14]) + "%"
+                        tertiary_text: app.w.forecastDateTime[14].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f14icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[14]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f15
+                        text: str(app.w.forecastTemp[15]) + 'F' + ' ' +  app.w.forecastDescription[15].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[15]) + ' ' + str(app.w.forecastWindSpeed[15]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[15]) + "%"
+                        tertiary_text: app.w.forecastDateTime[15].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f15icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[15]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f16
+                        text: str(app.w.forecastTemp[16]) + 'F' + ' ' +  app.w.forecastDescription[16].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[16]) + ' ' + str(app.w.forecastWindSpeed[16]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[16]) + "%"
+                        tertiary_text: app.w.forecastDateTime[16].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f16icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[16]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f17
+                        text: str(app.w.forecastTemp[17]) + 'F' + ' ' +  app.w.forecastDescription[17].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[17]) + ' ' + str(app.w.forecastWindSpeed[17]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[17]) + "%"
+                        tertiary_text: app.w.forecastDateTime[17].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f17icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[17]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f18
+                        text: str(app.w.forecastTemp[18]) + 'F' + ' ' +  app.w.forecastDescription[18].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[18]) + ' ' + str(app.w.forecastWindSpeed[18]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[18]) + "%"
+                        tertiary_text: app.w.forecastDateTime[18].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f18icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[18]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f19
+                        text: str(app.w.forecastTemp[19]) + 'F' + ' ' +  app.w.forecastDescription[19].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[19]) + ' ' + str(app.w.forecastWindSpeed[19]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[19]) + "%"
+                        tertiary_text: app.w.forecastDateTime[19].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f19icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[19]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f20
+                        text: str(app.w.forecastTemp[20]) + 'F' + ' ' +  app.w.forecastDescription[20].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[20]) + ' ' + str(app.w.forecastWindSpeed[20]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[20]) + "%"
+                        tertiary_text: app.w.forecastDateTime[20].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f20icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[20]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f21
+                        text: str(app.w.forecastTemp[21]) + 'F' + ' ' +  app.w.forecastDescription[21].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[21]) + ' ' + str(app.w.forecastWindSpeed[21]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[21]) + "%"
+                        tertiary_text: app.w.forecastDateTime[21].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f21icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[21]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f22
+                        text: str(app.w.forecastTemp[22]) + 'F' + ' ' +  app.w.forecastDescription[22].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[22]) + ' ' + str(app.w.forecastWindSpeed[22]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[22]) + "%"
+                        tertiary_text: app.w.forecastDateTime[22].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f22icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[22]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f23
+                        text: str(app.w.forecastTemp[23]) + 'F' + ' ' +  app.w.forecastDescription[23].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[23]) + ' ' + str(app.w.forecastWindSpeed[23]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[23]) + "%"
+                        tertiary_text: app.w.forecastDateTime[23].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f23icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[23]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f24
+                        text: str(app.w.forecastTemp[24]) + 'F' + ' ' +  app.w.forecastDescription[24].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[24]) + ' ' + str(app.w.forecastWindSpeed[24]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[24]) + "%"
+                        tertiary_text: app.w.forecastDateTime[24].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f24icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[24]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f25
+                        text: str(app.w.forecastTemp[25]) + 'F' + ' ' +  app.w.forecastDescription[25].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[25]) + ' ' + str(app.w.forecastWindSpeed[25]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[25]) + "%"
+                        tertiary_text: app.w.forecastDateTime[25].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f25icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[25]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f26
+                        text: str(app.w.forecastTemp[26]) + 'F' + ' ' +  app.w.forecastDescription[26].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[26]) + ' ' + str(app.w.forecastWindSpeed[26]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[26]) + "%"
+                        tertiary_text: app.w.forecastDateTime[26].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f26icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[26]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f27
+                        text: str(app.w.forecastTemp[27]) + 'F' + ' ' +  app.w.forecastDescription[27].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[27]) + ' ' + str(app.w.forecastWindSpeed[27]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[27]) + "%"
+                        tertiary_text: app.w.forecastDateTime[27].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f27icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[27]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f28
+                        text: str(app.w.forecastTemp[28]) + 'F' + ' ' +  app.w.forecastDescription[28].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[28]) + ' ' + str(app.w.forecastWindSpeed[28]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[28]) + "%"
+                        tertiary_text: app.w.forecastDateTime[28].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f28icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[28]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f29
+                        text: str(app.w.forecastTemp[29]) + 'F' + ' ' +  app.w.forecastDescription[29].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[29]) + ' ' + str(app.w.forecastWindSpeed[29]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[29]) + "%"
+                        tertiary_text: app.w.forecastDateTime[29].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f29icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[29]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f30
+                        text: str(app.w.forecastTemp[30]) + 'F' + ' ' +  app.w.forecastDescription[30].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[30]) + ' ' + str(app.w.forecastWindSpeed[30]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[30]) + "%"
+                        tertiary_text: app.w.forecastDateTime[30].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f30icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[30]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f31
+                        text: str(app.w.forecastTemp[31]) + 'F' + ' ' +  app.w.forecastDescription[31].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[31]) + ' ' + str(app.w.forecastWindSpeed[31]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[31]) + "%"
+                        tertiary_text: app.w.forecastDateTime[31].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f31icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[31]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f32
+                        text: str(app.w.forecastTemp[32]) + 'F' + ' ' +  app.w.forecastDescription[32].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[32]) + ' ' + str(app.w.forecastWindSpeed[32]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[32]) + "%"
+                        tertiary_text: app.w.forecastDateTime[32].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f32icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[32]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f33
+                        text: str(app.w.forecastTemp[33]) + 'F' + ' ' +  app.w.forecastDescription[33].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[33]) + ' ' + str(app.w.forecastWindSpeed[33]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[33]) + "%"
+                        tertiary_text: app.w.forecastDateTime[33].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f33icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[33]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f34
+                        text: str(app.w.forecastTemp[34]) + 'F' + ' ' +  app.w.forecastDescription[34].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[34]) + ' ' + str(app.w.forecastWindSpeed[34]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[34]) + "%"
+                        tertiary_text: app.w.forecastDateTime[34].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f34icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[34]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f35
+                        text: str(app.w.forecastTemp[35]) + 'F' + ' ' +  app.w.forecastDescription[35].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[35]) + ' ' + str(app.w.forecastWindSpeed[35]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[35]) + "%"
+                        tertiary_text: app.w.forecastDateTime[35].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f35icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[35]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f36
+                        text: str(app.w.forecastTemp[36]) + 'F' + ' ' +  app.w.forecastDescription[36].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[36]) + ' ' + str(app.w.forecastWindSpeed[36]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[36]) + "%"
+                        tertiary_text: app.w.forecastDateTime[36].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f36icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[36]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f37
+                        text: str(app.w.forecastTemp[37]) + 'F' + ' ' +  app.w.forecastDescription[37].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[37]) + ' ' + str(app.w.forecastWindSpeed[37]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[37]) + "%"
+                        tertiary_text: app.w.forecastDateTime[37].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f37icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[37]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f38
+                        text: str(app.w.forecastTemp[38]) + 'F' + ' ' +  app.w.forecastDescription[38].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[38]) + ' ' + str(app.w.forecastWindSpeed[38]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[38]) + "%"
+                        tertiary_text: app.w.forecastDateTime[38].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f38icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[38]) + '.png'
+                    ThreeLineAvatarListItem:
+                        id: f39
+                        text: str(app.w.forecastTemp[39]) + 'F' + ' ' +  app.w.forecastDescription[39].title()
+                        secondary_text: 'Wd: '  + app.w.windDirection(app.w.forecastWindDeg[39]) + ' ' + str(app.w.forecastWindSpeed[39]) +' MPH' + ' | Hum: ' + str(app.w.forecastHumidity[39]) + "%"
+                        tertiary_text: app.w.forecastDateTime[39].strftime('%a: %m/%d/%y %l:%M%p' )
+                        ImageLeftWidget:
+                            id: f39icon
+                            source: 'icons/' + str(app.w.forecastDescIcon[39]) + '.png'
